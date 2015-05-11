@@ -52,7 +52,7 @@ public class AppWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		card = new Card();
+		card = new Card('C', "A");
 		frame.getContentPane().add(card);
 		
 		JButton btnMoveCard = new JButton("Move Card");

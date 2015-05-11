@@ -10,29 +10,36 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 
-public class Card extends Component{
+public final class Card extends Component{
 	
-	//INSTANCE VARIABLES
-	private BufferedImage image = null;					//image of the card
+	//INSTANCE VARIABLES====================================
+	private char suit;
+	private String rank;
+
 	
 	//variables used for loading images
-	private final String IMAGES_PATH = "images/card/";	//holds path to card images folder
-	private final String S_PATH = "S/";					//suit paths..
-	private final String C_PATH = "C/";
-	private final String H_PATH = "H/";
-	private final String D_PATH = "D/";
-	private final String IMG_EXTENSION = ".png";		//image extension
+	private BufferedImage image = null;					//image of the card
+	private String fullImagePath;
 
+	
+	//CONSTRUCTORS===========================================
 	public Card(){
 		this.setSize(80, 123);
 	}
 	
+	public Card(char suit, String rank){
+		this();
+		this.suit = suit;
+		this.rank = rank;
+		loadImage();
+	}
+	
+	
+	//INSTANCE METHODS=======================================
+	
 	public void paint(Graphics g){
 		//loads ace of spades
-		String imgFileName = IMAGES_PATH + S_PATH + "A" + IMG_EXTENSION;
-		URL url = Card.class.getClassLoader().getResource(imgFileName);
-		
-		image = null;
+		URL url = Card.class.getClassLoader().getResource(fullImagePath);
 			try {
 				image = ImageIO.read(url);
 			} catch (IOException e) {
@@ -40,5 +47,59 @@ public class Card extends Component{
 			}
 		g.drawImage(image, 0, 0, null);
 	}
+	
+	
+	/**
+	 * loads image for this instance of card
+	 */
+	private void loadImage(){
+		//build path to this cards load image
+		fullImagePath = "images/card/";
+		
+		//add suit to image path
+		switch(this.suit){
+		case 'S' : fullImagePath += "S/"; break;
+		case 'C' : fullImagePath += "C/"; break;
+		case 'H' : fullImagePath += "H/"; break;
+		case 'D' : fullImagePath += "D/"; break;
+		}
+		
+		//add rank to image path
+		fullImagePath += this.rank + ".png";
+	}
+	
+	
+	//CLASS METHODS==========================================
+	
+	/**
+	 * takes rank of card as integer and returns string 
+	 * @param int rankInt
+	 * @return String number if ranks is between 6 - 10 inclusive or letter if its Jack, Queen, King or Ace 
+	 */
+	public static String rankToStr(int rankInt){
+		String rankStr;
+		switch(rankInt){
+			case 11 :	{
+						rankStr = "J";
+						return rankStr;
+					}
+			case 12 :	{
+						rankStr = "Q";
+						return rankStr;
+					}
+			case 13 :	{
+						rankStr = "K";
+						return rankStr;
+					}
+			case 14 :	{
+						rankStr = "A";
+						return rankStr;
+					}
+			default :	{
+						rankStr = Integer.toString(rankInt);
+						return rankStr;
+					}
+		}
+	}// end rankToStr
 	
 }
