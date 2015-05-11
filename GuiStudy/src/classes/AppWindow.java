@@ -48,21 +48,40 @@ public class AppWindow {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.DARK_GRAY);
-		frame.setBounds(100, 100, 561, 410);
+		frame.setBounds(100, 100, 700, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		card = new Card('C', "A");
-		frame.getContentPane().add(card);
+		//testing cards position to figure out the coordinates for cards to be shown in the in the game GUI
+		//TODO cards are rendered in backwards position
+		//cards added first are at front, later cards added - are rendered behind one that's added first
+		//top row
+		Card HA = new Card('H', "A");
+		frame.add(HA);
+		HA.setLocation(185, 15);
 		
-		JButton btnMoveCard = new JButton("Move Card");
-		btnMoveCard.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				card.setLocation(card.getX() + 5, card.getY() + 5);
-			}
-		});
-		btnMoveCard.setBounds(418, 301, 89, 23);
-		frame.getContentPane().add(btnMoveCard);
+		Card CA = new Card('C', "A");
+		frame.add(CA);
+		CA.setLocation(100, 15);
+		
+		Card SA = new Card('S', "A");
+		frame.add(SA);
+		SA.setLocation(15, 15);
+		
+		//middle row
+		Card SK = new Card('S', "K");
+		frame.add(SK);
+		SK.setLocation(90, 220);
+		
+		Card S10 = new Card('S', "10");
+		frame.add(S10);
+		S10.setLocation(70, 200);
+		
+		
+		//bottom row		
+		Card H10 = new Card('H', "10");
+		frame.add(H10);
+		H10.setLocation(15, 385);	
 		
 	}
 }
