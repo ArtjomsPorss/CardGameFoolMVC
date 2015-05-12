@@ -6,12 +6,27 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JScrollPane;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+
+import java.awt.Dimension;
+
+import javax.swing.ScrollPaneConstants;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 
 public class AppWindow {
@@ -47,41 +62,38 @@ public class AppWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.getContentPane().setBackground(Color.DARK_GRAY);
-		frame.setBounds(100, 100, 700, 600);
+		frame.setBounds(100, 100, 775, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		//testing cards position to figure out the coordinates for cards to be shown in the in the game GUI
-		//TODO cards are rendered in backwards position
-		//cards added first are at front, later cards added - are rendered behind one that's added first
-		//top row
-		Card HA = new Card('H', "A");
-		frame.add(HA);
-		HA.setLocation(185, 15);
+		JPanel panel = new JPanel();
+		panel.setBounds(606, 10, 80, 123);
+		frame.getContentPane().add(panel);
+		panel.setPreferredSize(new Dimension(80, 123));
+		panel.setMinimumSize(new Dimension(80, 123));
 		
-		Card CA = new Card('C', "A");
-		frame.add(CA);
-		CA.setLocation(100, 15);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 240, 586, 133);
+		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
 		
-		Card SA = new Card('S', "A");
-		frame.add(SA);
-		SA.setLocation(15, 15);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		scrollPane.setBounds(10, 10, 236, 180);
+		frame.getContentPane().add(scrollPane);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		//scrollPane.setLayout(null);
 		
-		//middle row
-		Card SK = new Card('S', "K");
-		frame.add(SK);
-		SK.setLocation(90, 220);
+		Card JH = new Card('H', "J");
+		scrollPane.add(JH);
 		
-		Card S10 = new Card('S', "10");
-		frame.add(S10);
-		S10.setLocation(70, 200);
+		JLabel lbl = new JLabel();
+		lbl.setText("Hi!");
+		//scrollPane.add(lbl);
 		
-		
-		//bottom row		
-		Card H10 = new Card('H', "10");
-		frame.add(H10);
-		H10.setLocation(15, 385);	
+		//TODO make a working scrollable pane with cards that player has in his hand
 		
 	}
 }

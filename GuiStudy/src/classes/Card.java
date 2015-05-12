@@ -15,6 +15,7 @@ public final class Card extends Component{
 	//INSTANCE VARIABLES====================================
 	private char suit;
 	private String rank;
+	private boolean isUp = false;
 
 	
 	//variables used for loading images
