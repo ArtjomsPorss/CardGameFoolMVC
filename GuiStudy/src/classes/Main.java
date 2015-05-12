@@ -1,15 +1,18 @@
 package classes;
 
 public class Main {
+	private GUI gui;
+	private Model model;
+	private Controller control;
 
 	public static void main(String[] args) {
 		new Main().SetupGame();
 	}
 	
 	private void SetupGame(){
-		GUI gui = new GUI();
-		Model model = new Model(gui);
-		Controller control = new Controller(gui, model);
+		gui = new GUI();
+		control = new Controller(gui, model);
+		model = new Model(gui, control);
 	}
 
 }

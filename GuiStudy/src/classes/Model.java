@@ -10,13 +10,15 @@ import javax.swing.JScrollPane;
 
 public class Model {
 	//INSTANCE VARIABLES==============================
-	GUI gui;
-	Deck deck;
+	private GUI gui;
+	private Controller control;
+	private Deck deck;
 	
 	
 	//CONSTRUCTOR=====================================
-	public Model(GUI gui){
+	public Model(GUI gui, Controller control){
 		this.gui = gui;
+		this.control = control;
 		this.deck = new Deck();
 		//addCardsToScrollPane(deck.getDeck(), gui.scrollPane);
 		addCardsToScrollPane(deck.getDeck(), gui.panel_1);
