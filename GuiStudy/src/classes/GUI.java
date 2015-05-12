@@ -14,6 +14,7 @@ import javax.swing.JScrollBar;
 import java.awt.ComponentOrientation;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
+import java.awt.Rectangle;
 
 public class GUI {
 	JFrame frame;
@@ -32,12 +33,15 @@ public class GUI {
 		frame.setVisible(true);
 		
 		panel_1 = new JPanel();
+		panel_1.setBackground(Color.LIGHT_GRAY);
 		panel_1.setBounds(10, 303, 586, 133);
-		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
+		frame.getContentPane().add(panel_1);
+
 		
 		scrollBar = new JScrollBar();
 		scrollBar.addAdjustmentListener(new AdjustmentListener() {
+			/*
 			public void adjustmentValueChanged(AdjustmentEvent e) {
 				Point p = new Point();
 				//calculate the multiplier how far each scrolling step should go
@@ -46,7 +50,25 @@ public class GUI {
 				double scrollMultiplier = components / scrollMax;
 				System.out.println("Components: " + components + "\tMaximum: " + scrollMax + "\tMultiplier" + scrollMultiplier);
 				for(int i = 0; i < panel_1.getComponentCount(); i++){
-					p.setLocation((double)-1 * ((double)e.getValue() * scrollMultiplier) + (double)(i * 80), 0D);
+					p.setLocation((double)-1 * (e.getValue() * scrollMultiplier) + (double)(i * 80) , 0D);
+					panel_1.getComponent(i).setLocation(p);
+				}
+			}
+			*/
+			
+			public void adjustmentValueChanged(AdjustmentEvent e) {
+				Point p = new Point();
+				//calculate the multiplier how far each scrolling step should go
+				int componentCount = panel_1.getComponentCount();
+				int maxPosition = scrollBar.getMaximum();
+				int panelX = panel_1.getWidth();
+				int totalCompX = componentCount * 80;				//width of all cards
+				int xWithoutPanel = totalCompX - panelX;			//width of all cards excluding width of panel
+				//int scrlMultiplier = xWithoutPanel / maxPosition;	//how far each click will scroll cards to show cards beyond panel width
+				int scrlMultiplier = totalCompX / maxPosition;
+					
+				for(int i = 0; i < componentCount; ++i){
+					p.setLocation(-1*(e.getValue()* scrlMultiplier) + (80 * i), 0);
 					panel_1.getComponent(i).setLocation(p);
 				}
 			}
