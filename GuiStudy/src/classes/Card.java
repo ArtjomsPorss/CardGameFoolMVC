@@ -28,7 +28,7 @@ public final class Card extends Component{
 		this.setSize(80, 123);
 	}
 	
-	public Card(char suit, String rank){
+	public Card(String rank, char suit){
 		this();
 		this.suit = suit;
 		this.rank = rank;
