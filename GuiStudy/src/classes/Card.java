@@ -2,15 +2,15 @@ package classes;
 
 import java.awt.Component;
 import java.awt.Graphics;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 
-public final class Card extends Component{
+public final class Card extends JPanel{
 	
 	//INSTANCE VARIABLES====================================
 	private char suit;
@@ -71,6 +71,10 @@ public final class Card extends Component{
 	
 	
 	//CLASS METHODS==========================================
+	
+	public String toString(){
+		return this.rank + this.suit;
+	}
 	
 	/**
 	 * takes rank of card as integer and returns string 

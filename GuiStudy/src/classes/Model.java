@@ -1,6 +1,8 @@
 package classes;
 
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.event.ComponentListener;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -20,8 +22,8 @@ public class Model {
 		this.gui = gui;
 		this.control = control;
 		this.deck = new Deck();
-		//addCardsToScrollPane(deck.getDeck(), gui.scrollPane);
-		addCardsToScrollPane(deck.getDeck(), gui.panel_1);
+		addCardsToScrollPane(deck.getDeck(), gui.test);
+		//addCardsToScrollPane(deck.getDeck(), gui.panel_1);
 	}
 	
 	
@@ -34,11 +36,16 @@ public class Model {
 	}
 	
 	private void addCardsToScrollPane(Card[] cards, JPanel component){
-		int location = 0;
+		int location = 2;
+		//component.setPreferredSize(new Dimension((cards.length * 81) + 4, component.getHeight()));	//works fine if array is not breaked
 		for(Card c : cards){
+			component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 1, component.getHeight()));
 			component.add(c);
-			c.setLocation(location, 0);
-			location += 80;
+			c.setLocation(location, 2);
+			c.addMouseListener(control);
+			location += 81;
+			
+
 		}
 	}
 	

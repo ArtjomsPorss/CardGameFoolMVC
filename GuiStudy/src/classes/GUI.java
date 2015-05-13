@@ -15,13 +15,15 @@ import java.awt.ComponentOrientation;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.Rectangle;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 public class GUI {
 	JFrame frame;
-	JPanel panel;
 	JPanel panel_1;
 	JScrollPane scrollPane;
 	JScrollBar scrollBar;
+	JPanel test;
 
 	public GUI(){
 		frame = new JFrame();
@@ -33,10 +35,21 @@ public class GUI {
 		frame.setVisible(true);
 		
 		panel_1 = new JPanel();
+		panel_1.setAutoscrolls(true);
+		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel_1.setBackground(Color.LIGHT_GRAY);
-		panel_1.setBounds(10, 303, 586, 133);
+		panel_1.setBounds(10, 303, 505, 127);
 		panel_1.setLayout(null);
 		frame.getContentPane().add(panel_1);
+		
+		test = new JPanel();
+		test.setLayout(null);
+		test.setPreferredSize(new Dimension(0,127));
+		JScrollPane scrollFrame = new JScrollPane(test);
+		test.setAutoscrolls(true);
+		scrollFrame.setSize(new Dimension(500,100));
+		frame.getContentPane().add(scrollFrame);
+		
 
 		
 		scrollBar = new JScrollBar();
@@ -55,7 +68,8 @@ public class GUI {
 				}
 			}
 			*/
-			
+
+			/*
 			public void adjustmentValueChanged(AdjustmentEvent e) {
 				Point p = new Point();
 				//calculate the multiplier how far each scrolling step should go
@@ -65,29 +79,52 @@ public class GUI {
 				int totalCompX = componentCount * 80;				//width of all cards
 				int xWithoutPanel = totalCompX - panelX;			//width of all cards excluding width of panel
 				//int scrlMultiplier = xWithoutPanel / maxPosition;	//how far each click will scroll cards to show cards beyond panel width
-				int scrlMultiplier = totalCompX / maxPosition;
+				int scrlMultiplier = componentCount / maxPosition;
 					
-				for(int i = 0; i < componentCount; ++i){
-					p.setLocation(-1*(e.getValue()* scrlMultiplier) + (80 * i), 0);
+				for(int i = 0; i < scrlMultiplier; ++i){
+					p.setLocation(-1*((e.getValue()* 27)) + (81 * i + 2), 2);
 					panel_1.getComponent(i).setLocation(p);
 				}
 			}
+			*/
+			
+			public void adjustmentValueChanged(AdjustmentEvent e) {
+				Point p = new Point();
+				//calculate the multiplier how far each scrolling step should go
+				int componentCount = panel_1.getComponentCount();
+				int maxPosition = scrollBar.getMaximum();
+				int panelX = panel_1.getWidth();
+				int totalCompX = 0;				//width of all components in panel_1
+				
+				//count space taken by all components
+				for(int i = 0; i < componentCount; ++i){
+					if(i == componentCount - 1){
+						totalCompX = panel_1.getComponent(i).getLocation().x;	//set position of last component
+						totalCompX += panel_1.getComponent(i).getWidth();		//add last components width
+					}
+				}
+				
+				
+				int xWithoutPanel = totalCompX - panelX;			//width of all cards excluding width of panel
+				//int scrlMultiplier = xWithoutPanel / maxPosition;	//how far each click will scroll cards to show cards beyond panel width
+				//double scrlMultiplier = (double)componentCount / (double)maxPosition;		//too less
+				//double scrlMultiplier =  (double)maxPosition / (double)componentCount;	//too far
+				//double scrlMultiplier = (double)xWithoutPanel / (double)maxPosition; 		//too less
+				//double scrlMultiplier = ((double)totalCompX / (double)maxPosition) / 3.200000D;	//better, but still not that precise
+				double scrlMultiplier = ((double)xWithoutPanel / (double)maxPosition);
+				
+				//adjust position of every card in panel when scroll bar is moved
+				for(int i = 0; i < componentCount; ++i){
+					p.setLocation(-1D * (((double)e.getValue()* scrlMultiplier)) + (double)(81 * i + 2), 2D);
+					panel_1.getComponent(i).setLocation(p);
+				}
+			}
+			
+			
 		});
 		scrollBar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		scrollBar.setOrientation(JScrollBar.HORIZONTAL);
-		scrollBar.setBounds(10, 439, 586, 17);
+		scrollBar.setBounds(10, 434, 500, 17);
 		frame.getContentPane().add(scrollBar);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		scrollPane.setBounds(10, 11, 177, 142);
-		frame.getContentPane().add(scrollPane);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		
-		panel = new JPanel();
-		panel.setBounds(218, 11, 80, 123);
-		frame.getContentPane().add(panel);
-		panel.setPreferredSize(new Dimension(80, 123));
-		panel.setMinimumSize(new Dimension(80, 123));
 	}
 }
