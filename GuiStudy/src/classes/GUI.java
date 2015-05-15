@@ -21,6 +21,7 @@ import javax.swing.border.BevelBorder;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class GUI {
 	//INSTANCE VARIABLES===========================
@@ -28,11 +29,11 @@ public class GUI {
 	
 	//upper panel with cards
 	private JScrollPane scrollUpper;
-	private JPanel panelUpper;
+	protected JPanel panelUpper;
 	
 	//lower panel with cards
 	private JScrollPane scrollLower;
-	JPanel panelLower;
+	protected JPanel panelLower;
 	
 	//holds coordinates with cards
 	private Point[] coords = new Point[15]; //12 cards on table, 13deck
@@ -85,11 +86,36 @@ public class GUI {
 	//adds cards to panel with scroll pane
 	public void showCardsInPanel(Card[] cards, JPanel component){
 		System.out.println("entered showCardsInPanel()");
-		Model.countCards(cards);
 		int location = 2;
 		//TODO if both setSize and setPreferredSize for component are used, it always appears on screen, otherwise sometimes it is not shown 
 		component.setPreferredSize(new Dimension((cards.length * 81) + 4, component.getHeight()));	//works fine if array is not breaked
 		component.setSize(new Dimension((cards.length * 81) + 4, component.getHeight()));
+		System.out.println("Component sizes are set");
+		
+		for(Card c : cards){
+			//component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 2, component.getHeight()));		//increasing size of the panel for every card shown in it
+			component.add(c);
+			c.setLocation(location, 2);
+			//c.addMouseListener(control);
+			location += 81;
+		}
+		
+		
+		//testing printouts
+		System.out.println("Cards are added");
+		//System.out.println("JScrollPane sizes: " + gui.scrollPane.getPreferredSize().width + " " + gui.scrollPane.getPreferredSize().height);
+		System.out.println("Component sizes: " + component.getPreferredSize().width + " " + component.getPreferredSize().height);
+	}
+	
+	
+	//arrayList check
+	public void showCardsInPanel(ArrayList<Card> cards, JPanel component){
+		System.out.println("entered showCardsInPanel()");
+		
+		int location = 2;
+		//TODO if both setSize and setPreferredSize for component are used, it always appears on screen, otherwise sometimes it is not shown 
+		component.setPreferredSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));	//works fine if array is not breaked
+		component.setSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));
 		System.out.println("Component sizes are set");
 		
 		for(Card c : cards){

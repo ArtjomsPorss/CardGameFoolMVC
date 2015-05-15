@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 public class Controller implements MouseListener{
 	private GUI gui;
@@ -15,6 +17,9 @@ public class Controller implements MouseListener{
 	public Controller(GUI gui, Model model){
 		this.gui = gui;
 		this.model = model;
+		Deck deck = new Deck();
+		gui.showCardsInPanel(deck.getDeck1(), gui.panelLower);
+		gui.showCardsInPanel(deck.getDeck(), gui.panelUpper);
 	}
 	
 

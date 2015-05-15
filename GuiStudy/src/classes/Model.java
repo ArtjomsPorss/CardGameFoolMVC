@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 public class Model {
 	//INSTANCE VARIABLES==============================
 	private GUI gui;
-	private Deck deck;
+	protected Deck deck;
 	
 	
 	//CONSTRUCTOR=====================================
@@ -26,17 +26,7 @@ public class Model {
 	
 	
 	//CLASS METHODS=========================================
-	public static int countCards(Card[] cards){
-		int count = 0;
-		
-		for(Card c : cards){
-			if(c != null){
-				++count;
-			}
-		}
-		System.out.println(count);
-		return count;
-	}
+
 	
 	//INSTANCE METHODS=====================================
 	
