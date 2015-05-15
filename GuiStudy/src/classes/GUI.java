@@ -15,122 +15,95 @@ import java.awt.ComponentOrientation;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.Rectangle;
+
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GUI {
-	JFrame frame;
-	JPanel panel_1;
-	JScrollPane scrollPane;
-	JScrollBar scrollBar;
-	JPanel test;
+	//INSTANCE VARIABLES===========================
+	private JFrame frame;
+	
+	//upper panel with cards
+	private JScrollPane scrollUpper;
+	private JPanel panelUpper;
+	
+	//lower panel with cards
+	private JScrollPane scrollLower;
+	JPanel panelLower;
+	
+	//holds coordinates with cards
+	private Point[] coords = new Point[15]; //12 cards on table, 13deck
 
+	
+	//CONSTRUCTOR====================================
 	public GUI(){
+		
+		//Main GUI frame
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(Color.DARK_GRAY);
-		frame.setBounds(100, 100, 775, 550);
+		frame.setBounds(100, 100, 775, 570);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
 		
-		panel_1 = new JPanel();
-		panel_1.setAutoscrolls(true);
-		panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBackground(Color.LIGHT_GRAY);
-		panel_1.setBounds(10, 303, 505, 127);
-		panel_1.setLayout(null);
-		frame.getContentPane().add(panel_1);
-		
 		//testing version of scrollpane with panel assigned to it
-		test = new JPanel();
-		test.setLayout(null);
+		panelUpper = new JPanel();
+		panelUpper.setBackground(Color.LIGHT_GRAY);
+		panelUpper.setLayout(null);
 		//test.setPreferredSize(new Dimension(500,127));
-		JScrollPane scrollFrame = new JScrollPane(test);
-		scrollFrame.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollFrame.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-		test.setAutoscrolls(true);
-		scrollFrame.setSize(new Dimension(500,146));	//if there are cards to be scrolled
-		frame.getContentPane().add(scrollFrame);
+		scrollUpper = new JScrollPane(panelUpper);
+		scrollUpper.setLocation(15, 10);
+		scrollUpper.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollUpper.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		panelUpper.setAutoscrolls(true);
+		scrollUpper.setSize(new Dimension(500,146));	//if there are cards to be scrolled
+		frame.getContentPane().add(scrollUpper);
 		
+		//Lower panel and scroll pane for cards
+		panelLower = new JPanel();
+		panelLower.setBackground(Color.LIGHT_GRAY);
+		panelLower.setLayout(null);
+		//test.setPreferredSize(new Dimension(500,127));
+		scrollLower = new JScrollPane(panelLower);
+		scrollLower.setLocation(15, 385);
+		scrollLower.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollLower.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		panelLower.setAutoscrolls(true);
+		scrollLower.setSize(new Dimension(500,146));	//if there are cards to be scrolled
+		frame.getContentPane().add(scrollLower);
+	}
+	
+	
+	//INSTANCE METHODS=========================
+	
 
-		
-		//testing scrollbar which is separate from panel with cards
-		scrollBar = new JScrollBar();
-		scrollBar.addAdjustmentListener(new AdjustmentListener() {
-			/*
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				Point p = new Point();
-				//calculate the multiplier how far each scrolling step should go
-				double components = (double)panel_1.getComponentCount();
-				double scrollMax = (double)scrollBar.getMaximum();
-				double scrollMultiplier = components / scrollMax;
-				System.out.println("Components: " + components + "\tMaximum: " + scrollMax + "\tMultiplier" + scrollMultiplier);
-				for(int i = 0; i < panel_1.getComponentCount(); i++){
-					p.setLocation((double)-1 * (e.getValue() * scrollMultiplier) + (double)(i * 80) , 0D);
-					panel_1.getComponent(i).setLocation(p);
-				}
-			}
-			*/
 
-			/*
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				Point p = new Point();
-				//calculate the multiplier how far each scrolling step should go
-				int componentCount = panel_1.getComponentCount();
-				int maxPosition = scrollBar.getMaximum();
-				int panelX = panel_1.getWidth();
-				int totalCompX = componentCount * 80;				//width of all cards
-				int xWithoutPanel = totalCompX - panelX;			//width of all cards excluding width of panel
-				//int scrlMultiplier = xWithoutPanel / maxPosition;	//how far each click will scroll cards to show cards beyond panel width
-				int scrlMultiplier = componentCount / maxPosition;
-					
-				for(int i = 0; i < scrlMultiplier; ++i){
-					p.setLocation(-1*((e.getValue()* 27)) + (81 * i + 2), 2);
-					panel_1.getComponent(i).setLocation(p);
-				}
-			}
-			*/
-			
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				Point p = new Point();
-				//calculate the multiplier how far each scrolling step should go
-				int componentCount = panel_1.getComponentCount();
-				int maxPosition = scrollBar.getMaximum();
-				int panelX = panel_1.getWidth();
-				int totalCompX = 0;				//width of all components in panel_1
-				
-				//count space taken by all components
-				for(int i = 0; i < componentCount; ++i){
-					if(i == componentCount - 1){
-						totalCompX = panel_1.getComponent(i).getLocation().x;	//set position of last component
-						totalCompX += panel_1.getComponent(i).getWidth();		//add last components width
-					}
-				}
-				
-				
-				int xWithoutPanel = totalCompX - panelX;			//width of all cards excluding width of panel
-				//int scrlMultiplier = xWithoutPanel / maxPosition;	//how far each click will scroll cards to show cards beyond panel width
-				//double scrlMultiplier = (double)componentCount / (double)maxPosition;		//too less
-				//double scrlMultiplier =  (double)maxPosition / (double)componentCount;	//too far
-				//double scrlMultiplier = (double)xWithoutPanel / (double)maxPosition; 		//too less
-				//double scrlMultiplier = ((double)totalCompX / (double)maxPosition) / 3.200000D;	//better, but still not that precise
-				double scrlMultiplier = ((double)xWithoutPanel / (double)maxPosition);
-				
-				//adjust position of every card in panel when scroll bar is moved
-				for(int i = 0; i < componentCount; ++i){
-					p.setLocation(-1D * (((double)e.getValue()* scrlMultiplier)) + (double)(81 * i + 2), 2D);
-					panel_1.getComponent(i).setLocation(p);
-				}
-			}
-		});
+	//adds cards to panel with scroll pane
+	public void showCardsInPanel(Card[] cards, JPanel component){
+		System.out.println("entered showCardsInPanel()");
+		Model.countCards(cards);
+		int location = 2;
+		//TODO if both setSize and setPreferredSize for component are used, it always appears on screen, otherwise sometimes it is not shown 
+		component.setPreferredSize(new Dimension((cards.length * 81) + 4, component.getHeight()));	//works fine if array is not breaked
+		component.setSize(new Dimension((cards.length * 81) + 4, component.getHeight()));
+		System.out.println("Component sizes are set");
+		
+		for(Card c : cards){
+			//component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 2, component.getHeight()));		//increasing size of the panel for every card shown in it
+			component.add(c);
+			c.setLocation(location, 2);
+			//c.addMouseListener(control);
+			location += 81;
+		}
 		
 		
-		scrollBar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		scrollBar.setOrientation(JScrollBar.HORIZONTAL);
-		scrollBar.setBounds(10, 434, 500, 17);
-		frame.getContentPane().add(scrollBar);
+		//testing printouts
+		System.out.println("Cards are added");
+		//System.out.println("JScrollPane sizes: " + gui.scrollPane.getPreferredSize().width + " " + gui.scrollPane.getPreferredSize().height);
+		System.out.println("Component sizes: " + component.getPreferredSize().width + " " + component.getPreferredSize().height);
 	}
 }

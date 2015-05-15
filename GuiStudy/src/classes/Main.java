@@ -11,8 +11,9 @@ public class Main {
 	
 	private void SetupGame(){
 		gui = new GUI();
+		model = new Model();
 		control = new Controller(gui, model);
-		model = new Model(gui, control);
+
 	}
 
 }
