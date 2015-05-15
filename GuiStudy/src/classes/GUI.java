@@ -80,7 +80,7 @@ public class GUI {
 	
 	//INSTANCE METHODS=========================
 	
-
+	//TODO create arrayList deck, remove first element in arraylist, display first element in hand
 
 	//adds cards to panel with scroll pane
 	public void showCardsInPanel(Card[] cards, JPanel component){
