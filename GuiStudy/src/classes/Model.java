@@ -37,6 +37,7 @@ public class Model {
 	
 	private void addCardsToScrollPane(Card[] cards, JPanel component){
 		int location = 2;
+		//TODO here
 		//component.setPreferredSize(new Dimension((cards.length * 81) + 4, component.getHeight()));	//works fine if array is not breaked
 		for(Card c : cards){
 			component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 1, component.getHeight()));
