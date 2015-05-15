@@ -22,7 +22,7 @@ public class Model {
 		this.gui = gui;
 		this.control = control;
 		this.deck = new Deck();
-		addCardsToScrollPane(deck.getDeck(), gui.test);
+		showCardsInPanel(deck.getDeck(), gui.test);
 		//addCardsToScrollPane(deck.getDeck(), gui.panel_1);
 	}
 	
@@ -35,19 +35,28 @@ public class Model {
 		}
 	}
 	
-	private void addCardsToScrollPane(Card[] cards, JPanel component){
+	private void showCardsInPanel(Card[] cards, JPanel component){
+		System.out.println("entered showCardsInPanel()");
+		
 		int location = 2;
-		//TODO here
-		//component.setPreferredSize(new Dimension((cards.length * 81) + 4, component.getHeight()));	//works fine if array is not breaked
+		//component.setPreferredSize(new Dimension(component.getSize().width + location + 1, component.getHeight()));
+		//TODO if both setSize and setPreferredSize for component are used, it always appears on screen, otherwise sometimes it is not shown 
+		component.setPreferredSize(new Dimension((cards.length * 81) + 4, component.getHeight()));	//works fine if array is not breaked
+		component.setSize(new Dimension((cards.length * 81) + 4, component.getHeight()));
+		System.out.println("Component sizes are set");
 		for(Card c : cards){
-			component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 1, component.getHeight()));
+			//component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 2, component.getHeight()));		//increasing size of the panel for every card shown in it
 			component.add(c);
 			c.setLocation(location, 2);
 			c.addMouseListener(control);
 			location += 81;
-			
-
 		}
+		
+		
+		//testing printouts
+		System.out.println("Cards are added");
+		//System.out.println("JScrollPane sizes: " + gui.scrollPane.getPreferredSize().width + " " + gui.scrollPane.getPreferredSize().height);
+		System.out.println("Component sizes: " + component.getPreferredSize().width + " " + component.getPreferredSize().height);
 	}
 	
 }

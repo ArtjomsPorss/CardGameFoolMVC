@@ -17,6 +17,8 @@ import java.awt.event.AdjustmentEvent;
 import java.awt.Rectangle;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GUI {
 	JFrame frame;
@@ -42,16 +44,20 @@ public class GUI {
 		panel_1.setLayout(null);
 		frame.getContentPane().add(panel_1);
 		
+		//testing version of scrollpane with panel assigned to it
 		test = new JPanel();
 		test.setLayout(null);
-		test.setPreferredSize(new Dimension(0,127));
+		//test.setPreferredSize(new Dimension(500,127));
 		JScrollPane scrollFrame = new JScrollPane(test);
+		scrollFrame.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollFrame.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		test.setAutoscrolls(true);
-		scrollFrame.setSize(new Dimension(500,100));
+		scrollFrame.setSize(new Dimension(500,146));	//if there are cards to be scrolled
 		frame.getContentPane().add(scrollFrame);
 		
 
 		
+		//testing scrollbar which is separate from panel with cards
 		scrollBar = new JScrollBar();
 		scrollBar.addAdjustmentListener(new AdjustmentListener() {
 			/*
@@ -119,9 +125,9 @@ public class GUI {
 					panel_1.getComponent(i).setLocation(p);
 				}
 			}
-			
-			
 		});
+		
+		
 		scrollBar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		scrollBar.setOrientation(JScrollBar.HORIZONTAL);
 		scrollBar.setBounds(10, 434, 500, 17);

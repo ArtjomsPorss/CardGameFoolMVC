@@ -8,7 +8,6 @@ public class Deck {
 	//CONSTRUCTOR=========================================
 	public Deck(){
 		createDeck();
-		System.out.println("Deck class created");
 	}
 	
 	//INSTANCE METHODS====================================
@@ -16,7 +15,6 @@ public class Deck {
 	//creates deck of cards
 	public void createDeck(){
 		int forLoopCardDeckCounter = 0;		//used to iterate through deck array
-		System.out.println("\nDeck created.. ");
 		char suit = ' ';
 		String rank = " ";
 		for(int s = 0; s < 4; ++s){			//sets card suits
@@ -50,7 +48,6 @@ public class Deck {
 	
 	//returns deck
 	public Card[] getDeck(){
-		System.out.println("Deck returned");
 		return deck;
 	}
 }
