@@ -19,8 +19,7 @@ public class Model {
 	//CONSTRUCTOR=====================================
 	public Model(){
 		this.deck = new Deck();
-		//showCardsInPanel(deck.getDeck(), gui.panelUpper);
-		//gui.showCardsInPanel(deck.getDeck(), gui.panelLower);
+
 
 	}
 	
