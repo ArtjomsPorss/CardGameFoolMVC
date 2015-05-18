@@ -26,22 +26,23 @@ import java.util.ArrayList;
 public class GUI {
 	//INSTANCE VARIABLES===========================
 	private JFrame frame;
-	
+
 	//upper panel with cards
 	private JScrollPane scrollUpper;
 	protected JPanel panelUpper;
-	
+
 	//lower panel with cards
 	private JScrollPane scrollLower;
 	protected JPanel panelLower;
-	
-	//holds coordinates with cards
-	private Point[] coords = new Point[15]; //12 cards on table, 13deck
 
-	
+	//holds coordinates with cards
+	private Point[] coords = new Point[14]; //12cards on table, 13trump, 14deck
+
+
 	//CONSTRUCTOR====================================
 	public GUI(){
-		
+		initialiseCoordinates();
+
 		//Main GUI frame
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -50,7 +51,7 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
-		
+
 		//testing version of scrollpane with panel assigned to it
 		panelUpper = new JPanel();
 		panelUpper.setBackground(Color.LIGHT_GRAY);
@@ -63,7 +64,7 @@ public class GUI {
 		panelUpper.setAutoscrolls(true);
 		scrollUpper.setSize(new Dimension(500,146));	//if there are cards to be scrolled
 		frame.getContentPane().add(scrollUpper);
-		
+
 		//Lower panel and scroll pane for cards
 		panelLower = new JPanel();
 		panelLower.setBackground(Color.LIGHT_GRAY);
@@ -77,22 +78,21 @@ public class GUI {
 		scrollLower.setSize(new Dimension(500,146));	//if there are cards to be scrolled
 		frame.getContentPane().add(scrollLower);
 	}
-	
-	
+
+
 	//INSTANCE METHODS=========================
-	
-	//TODO create arrayList deck, remove first element in arraylist, display first element in hand
+
 
 	//adds cards to panel with scroll pane
 	public void showCardsInPanel(ArrayList<Card> cards, JPanel component, boolean flipped){
 		System.out.println("entered showCardsInPanel()");
-		
+
 		int location = 2;
 		//TODO if both setSize and setPreferredSize for component are used, it always appears on screen, otherwise sometimes it is not shown 
 		component.setPreferredSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));	//works fine if array is not breaked
 		component.setSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));
 		System.out.println("Component sizes are set");
-		
+
 		for(Card c : cards){
 			//component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 2, component.getHeight()));		//increasing size of the panel for every card shown in it
 			component.add(c);
@@ -101,11 +101,48 @@ public class GUI {
 			//c.addMouseListener(control);
 			location += 81;
 		}
-		
-		
+
 		//testing printouts
 		System.out.println("Cards are added");
 		//System.out.println("JScrollPane sizes: " + gui.scrollPane.getPreferredSize().width + " " + gui.scrollPane.getPreferredSize().height);
 		System.out.println("Component sizes: " + component.getPreferredSize().width + " " + component.getPreferredSize().height);
+	}
+
+
+	//initialise coordinates for card on table, trump, deck
+	private void initialiseCoordinates(){
+		int x = 50;
+		int y = 200;
+		for(int i = 0; i < coords.length; ++i){
+			if(i == 0){				//first card	
+			}else if(i == 13) {		//deck
+				x = 649;
+				y = 22;
+			} else if(i == 12) {	//trump card
+				x = 559;
+				y = 22;
+			} else if(i % 2 == 1){	//odd card
+				x += 20;
+				y += 20;
+			} else {				//even card
+				y = 200;
+				x += 95;
+			}
+			coords[i] = new Point(x, y);
+		}
+	}
+	
+	
+	//shows card on table
+	public void showCardOnTable(ArrayList<Card> cards){
+		/*
+		 * cards are added in reversed order because otherwise first card
+		 * will be shown on top of the next one
+		 */
+		for(int i = coords.length - 1; i > -1; --i){	
+			frame.getContentPane().add(cards.get(i));
+			cards.get(i).setLocation(coords[i]);
+			cards.get(i).setFlipped(false);
+		}
 	}
 }

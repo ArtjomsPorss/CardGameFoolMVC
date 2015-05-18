@@ -16,7 +16,7 @@ public final class Card extends JPanel{
 	//INSTANCE VARIABLES====================================
 	private char suit;
 	private String rank;
-	private boolean flipped = true;			//is card flipped or not
+	private boolean flipped = true;			//if card flipped - back is shown, if not - image
 
 
 	//variables used for loading images
@@ -41,7 +41,7 @@ public final class Card extends JPanel{
 
 	//Paints card image or back
 	public void paint(Graphics g){
-		if(!flipped){
+		if(!flipped){	//if card is not flipped - show image
 			URL url = Card.class.getClassLoader().getResource(fullImagePath);
 			try {
 				image = ImageIO.read(url);
@@ -49,9 +49,12 @@ public final class Card extends JPanel{
 				e.printStackTrace();
 			}
 			g.drawImage(image, 0, 0, null);
-		}else{
+			g.drawRect(0, 0, 79, 122);
+		}else{		//if card is flipped - show back of a card
 			g.setColor(Color.GRAY);
 			g.fillRect(0, 0, 80, 123);
+			g.setColor(Color.BLACK);
+			g.drawRect(0, 0, 79, 122);
 		}
 	}
 

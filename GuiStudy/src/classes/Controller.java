@@ -20,9 +20,10 @@ public class Controller implements MouseListener{
 		model.player.drawHand(model.deck.getCards());
 		
 		//TESTING
-		gui.showCardsInPanel(model.deck.getCards(), gui.panelUpper, false);
+		//gui.showCardsInPanel(model.deck.getCards(), gui.panelUpper, true);
 		//gui.showCardsInPanel(model.deck.getCards(), gui.panelLower, false);
 		gui.showCardsInPanel(model.player.getCards(), gui.panelLower, false);
+		gui.showCardOnTable(model.deck.getCards());
 	}
 	
 
