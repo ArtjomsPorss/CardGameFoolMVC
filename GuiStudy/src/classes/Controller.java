@@ -17,8 +17,12 @@ public class Controller implements MouseListener{
 	public Controller(GUI gui, Model model){
 		this.gui = gui;
 		this.model = model;
-		gui.showCardsInPanel(model.deck.getDeck(), gui.panelLower);
-		//gui.showCardsInPanel(model.deck.getDeck(), gui.panelUpper);
+		model.player.drawHand(model.deck.getCards());
+		
+		//TESTING
+		gui.showCardsInPanel(model.deck.getCards(), gui.panelUpper, false);
+		//gui.showCardsInPanel(model.deck.getCards(), gui.panelLower, false);
+		gui.showCardsInPanel(model.player.getCards(), gui.panelLower, false);
 	}
 	
 

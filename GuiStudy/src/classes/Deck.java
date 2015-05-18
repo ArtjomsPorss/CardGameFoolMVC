@@ -2,13 +2,14 @@ package classes;
 
 import java.util.ArrayList;
 
-public class Deck {
+public class Deck extends Cards{
 	//INSTANCE VARIABLES==================================
 	private ArrayList<Card> deck = new ArrayList<>(36);	//ArrayList does reindexing if element was removed
 	
 	
 	//CONSTRUCTOR=========================================
 	public Deck(){
+		super(new ArrayList<Card>());
 		createDeck();
 	}
 	
@@ -41,14 +42,14 @@ public class Deck {
 				}
 
 				//sets suits and rank for current card
-				deck.add(new Card(rank, suit));	
+				super.addCard(new Card(rank, suit));	
 			}
 		}
 	}//END createDeck
 	
 	
 	//returns deck
-	public ArrayList<Card> getDeck(){
-		return deck;
-	}
+//	public ArrayList<Card> getDeck(){
+//		return deck;
+//	}
 }

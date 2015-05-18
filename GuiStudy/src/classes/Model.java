@@ -14,12 +14,13 @@ public class Model {
 	//INSTANCE VARIABLES==============================
 	private GUI gui;
 	protected Deck deck;
+	protected Player player;
 	
 	
 	//CONSTRUCTOR=====================================
 	public Model(){
 		this.deck = new Deck();
-
+		this.player = new Player();
 
 	}
 	

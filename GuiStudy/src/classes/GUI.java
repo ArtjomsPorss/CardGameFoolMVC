@@ -84,7 +84,7 @@ public class GUI {
 	//TODO create arrayList deck, remove first element in arraylist, display first element in hand
 
 	//adds cards to panel with scroll pane
-	public void showCardsInPanel(ArrayList<Card> cards, JPanel component){
+	public void showCardsInPanel(ArrayList<Card> cards, JPanel component, boolean flipped){
 		System.out.println("entered showCardsInPanel()");
 		
 		int location = 2;
@@ -96,6 +96,7 @@ public class GUI {
 		for(Card c : cards){
 			//component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 2, component.getHeight()));		//increasing size of the panel for every card shown in it
 			component.add(c);
+			c.setFlipped(flipped); 				//sets is card flipped or not
 			c.setLocation(location, 2);
 			//c.addMouseListener(control);
 			location += 81;
