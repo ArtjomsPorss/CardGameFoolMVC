@@ -1,16 +1,20 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class Deck extends Cards{
 	//INSTANCE VARIABLES==================================
 	private ArrayList<Card> deck = new ArrayList<>(36);	//ArrayList does reindexing if element was removed
+	private char trumps;
 	
 	
 	//CONSTRUCTOR=========================================
 	public Deck(){
 		super(new ArrayList<Card>());
 		createDeck();
+		shuffleDeck();
 	}
 	
 	//INSTANCE METHODS====================================
@@ -48,8 +52,13 @@ public class Deck extends Cards{
 	}//END createDeck
 	
 	
-	//returns deck
-//	public ArrayList<Card> getDeck(){
-//		return deck;
-//	}
+	// Shuffle deck algorithm
+	public void shuffleDeck(){	//shuffle while trump card is ace
+		do{
+			Collections.shuffle(super.getCards());
+		}while(super.getCards().get(super.getCards().size()-1).getRank().equals("A"));
+		
+		trumps = super.getCards().get(super.getCards().size()-1).getSuit();		//set trumps
+		System.out.println("" + trumps);
+	}//shuffleDeck()
 }

@@ -36,7 +36,7 @@ public class GUI {
 	protected JPanel panelLower;
 
 	//holds coordinates with cards
-	private Point[] coords = new Point[14]; //12cards on table, 13trump, 14deck
+	private Point[] coords = new Point[14]; //0 - 11 cards on table, 12trump, 13deck
 
 
 	//CONSTRUCTOR====================================
@@ -139,10 +139,26 @@ public class GUI {
 		 * cards are added in reversed order because otherwise first card
 		 * will be shown on top of the next one
 		 */
-		for(int i = coords.length - 1; i > -1; --i){	
+		for(int i = coords.length - 3; i > -1; --i){	
 			frame.getContentPane().add(cards.get(i));
 			cards.get(i).setLocation(coords[i]);
 			cards.get(i).setFlipped(false);
+		}
+	}
+	
+	
+	//shows deck and trumps
+	public void showDeckOnTable(ArrayList<Card> deck){
+		for(int i = 0; i < deck.size(); ++i){
+			frame.getContentPane().add(deck.get(i));
+			if(i != deck.size() - 1){	//if its not last card in deck
+				deck.get(i).setLocation(coords[13]);	//show in deck position
+				deck.get(i).setFlipped(true);
+			}else{										//it's last card in deck 
+				deck.get(i).setLocation(coords[12]);	//show in trumps position
+				deck.get(i).setFlipped(false);				
+			}
+			
 		}
 	}
 }

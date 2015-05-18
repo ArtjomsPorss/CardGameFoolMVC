@@ -17,18 +17,19 @@ public class Controller implements MouseListener{
 	public Controller(GUI gui, Model model){
 		this.gui = gui;
 		this.model = model;
-		model.player.drawHand(model.deck.getCards());
+		model.player1.drawHand(model.deck.getCards());
+		model.player2.drawHand(model.deck.getCards());		
 		
 		//TESTING
 		//gui.showCardsInPanel(model.deck.getCards(), gui.panelUpper, true);
 		//gui.showCardsInPanel(model.deck.getCards(), gui.panelLower, false);
-		gui.showCardsInPanel(model.player.getCards(), gui.panelLower, false);
-		gui.showCardOnTable(model.deck.getCards());
+		gui.showCardsInPanel(model.player1.getCards(), gui.panelLower, false);
+		gui.showCardsInPanel(model.player2.getCards(), gui.panelUpper, false);
+		gui.showDeckOnTable(model.deck.getCards());
 	}
 	
 
 	//INSTANCE METHODS=======================
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub

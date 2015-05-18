@@ -16,7 +16,7 @@ public final class Card extends JPanel{
 	//INSTANCE VARIABLES====================================
 	private char suit;
 	private String rank;
-	private boolean flipped = true;			//if card flipped - back is shown, if not - image
+	private boolean flipped = true;			//if true - cards back is shown, if false - image
 
 
 	//variables used for loading images
@@ -80,21 +80,33 @@ public final class Card extends JPanel{
 
 
 	//CLASS METHODS==========================================
-	
+	//prints cards rank and suit
 	public String toString(){
 		return this.rank + this.suit;
 	}
 
-	
+
 	//card "UP" state getters and setters
 	public void setFlipped(boolean flipped){
 		this.flipped = flipped;
 	}
-		
+
 	public boolean getFlipped(){
 		return this.flipped;
 	}
 	
+	
+	// rank getter
+	public String getRank(){
+		return rank;
+	}
+	
+	
+	// suit getter
+	public char getSuit(){
+		return suit;
+	}
+
 	/**
 	 * takes rank of card as integer and returns string 
 	 * @param int rankInt
@@ -103,27 +115,28 @@ public final class Card extends JPanel{
 	public static String rankToStr(int rankInt){
 		String rankStr;
 		switch(rankInt){
-		case 11 :	{
-			rankStr = "J";
-			return rankStr;
+			case 11 :	{
+				rankStr = "J";
+				break;
+			}
+			case 12 :	{
+				rankStr = "Q";
+				break;
+			}
+			case 13 :	{
+				rankStr = "K";
+				break;
+			}
+			case 14 :	{
+				rankStr = "A";
+				break;
+			}
+			default :	{
+				rankStr = Integer.toString(rankInt);
+				break;
+			}
 		}
-		case 12 :	{
-			rankStr = "Q";
-			return rankStr;
-		}
-		case 13 :	{
-			rankStr = "K";
-			return rankStr;
-		}
-		case 14 :	{
-			rankStr = "A";
-			return rankStr;
-		}
-		default :	{
-			rankStr = Integer.toString(rankInt);
-			return rankStr;
-		}
-		}
+		return rankStr;
 	}// end rankToStr
 
 }
