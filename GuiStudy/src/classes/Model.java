@@ -7,6 +7,7 @@ package classes;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.JComponent;
@@ -17,7 +18,6 @@ import javax.swing.JScrollPane;
 
 public class Model {
 	//INSTANCE VARIABLES==============================
-	private GUI gui;
 	protected Deck deck;
 	protected Player player1;
 	protected Player player2;
@@ -25,6 +25,13 @@ public class Model {
 	protected Player defender;
 	protected Table table;
 	protected Discard discard;
+	
+	/*
+	 * Determines state of the game.
+	 * 0 - attacker attack
+	 * 1 - 
+	 */
+	private int state = 0;	
 	
 	
 	//CONSTRUCTOR=====================================
@@ -44,7 +51,8 @@ public class Model {
 	
 	/**
 	 * Checks and assigns who goes first
-	 * Player with trump in hand of lowest rank goes first 
+	 * Player with trump in hand of lowest rank goes first
+	 * returns String with description
 	 */
 	protected String assignAttackerDefender(){
 		int rank1 = 15;
@@ -80,6 +88,15 @@ public class Model {
 				this.defender = player1;
 				return "None has trumps, randomly player 2 goes first";
 			}
+		}
+	}// assignAttackerDefender()
+	
+	
+	//handles the event from cards
+	public void handler(MouseEvent e){
+		if(attacker.getCards().contains(e.getSource())){	//if card clicked in attackers hand, move it to table
+			int index = attacker.getCards().indexOf(e.getSource());
+			table.getCards().add(attacker.getCards().remove(index));
 		}
 	}
 }

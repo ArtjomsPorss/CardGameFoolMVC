@@ -189,4 +189,23 @@ public class GUI {
 			
 		}
 	}
+	
+	
+	//show cards on table
+	public void showTable(ArrayList<Card> table){
+		//cards to be shown last on top, should be added in reverse order
+		for(int i = table.size()-1; i >= 0; --i){
+			frame.add(table.get(i));
+			table.get(i).setLocation(coords[i]);
+		}
+	}
+	
+	
+	//shows all cards in game
+	public void showCards(ArrayList<Card> p1, ArrayList<Card> p2, ArrayList<Card> table, ArrayList<Card> deck){
+		showCardsInPanel(p1, panelLower, false);
+		showCardsInPanel(p2, panelUpper, false);
+		showTable(table);
+		showDeckOnTable(deck);
+	}
 }

@@ -35,4 +35,10 @@ public class Player extends Cards{
 	public void drawAll(ArrayList<Card> pile){
 		super.getCards().addAll(pile);
 	}
+	
+	
+	//makes first attack move
+	public void attack(){
+		
+	}
 }

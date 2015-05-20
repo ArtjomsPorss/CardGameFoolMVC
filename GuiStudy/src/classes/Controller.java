@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 public class Controller implements MouseListener{
 	private GUI gui;
 	private Model model;
+	boolean attacked = false;
 	
 	//CONSTRUCTOR============================
 	public Controller(GUI gui, Model model){
@@ -23,14 +24,11 @@ public class Controller implements MouseListener{
 		this.model = model;
 		model.deck.addListeners(this);
 		model.player1.drawHand(model.deck.getCards());
-		model.player2.drawHand(model.deck.getCards());		
+		model.player2.drawHand(model.deck.getCards());	
 		
-		//TESTING
-		//gui.showCardsInPanel(model.deck.getCards(), gui.panelUpper, true);
-		//gui.showCardsInPanel(model.deck.getCards(), gui.panelLower, false);
-		gui.showCardsInPanel(model.player1.getCards(), gui.panelLower, false);
-		gui.showCardsInPanel(model.player2.getCards(), gui.panelUpper, false);
-		gui.showDeckOnTable(model.deck.getCards());
+		gui.infoText.setText(model.assignAttackerDefender());	//assign attacker and defender
+		
+		gui.showCards(model.player1.getCards(), model.player2.getCards(), model.table.getCards(), model.deck.getCards());
 	}
 	
 
@@ -39,10 +37,21 @@ public class Controller implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		if(e.getComponent().getClass().isInstance(new Card())){		// TODO how to compare class of object that caused event to Card class without creating actual card? 
 			String cardName = e.getComponent().toString();
-			System.out.println(cardName + " has been pressed");			
+			System.out.println(cardName + " has been pressed");
+			model.handler(e);
+			
+			gui.showCards(model.player1.getCards(), model.player2.getCards(), model.table.getCards(), model.deck.getCards());
 		} else {
 			System.out.println("Something else has been pressed");				
 		}
+	}
+	
+	
+	private void attack(){
+		do{
+			//System.out.println("");
+		}while(attacked == false);
+		System.out.println("HE PRESSSED DA BUTTON!");
 	}
 
 
