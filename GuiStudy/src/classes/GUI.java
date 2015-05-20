@@ -22,6 +22,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class GUI {
 	//INSTANCE VARIABLES===========================
@@ -77,6 +79,18 @@ public class GUI {
 		panelLower.setAutoscrolls(true);
 		scrollLower.setSize(new Dimension(500,146));	//if there are cards to be scrolled
 		frame.getContentPane().add(scrollLower);
+		
+		JLabel lblTrumps = new JLabel("Trumps");
+		lblTrumps.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblTrumps.setForeground(Color.WHITE);
+		lblTrumps.setBounds(577, 8, 46, 14);
+		frame.getContentPane().add(lblTrumps);
+		
+		JLabel lblDeck = new JLabel("Deck");
+		lblDeck.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblDeck.setForeground(Color.WHITE);
+		lblDeck.setBounds(668, 8, 46, 14);
+		frame.getContentPane().add(lblDeck);
 	}
 
 
@@ -117,10 +131,10 @@ public class GUI {
 			if(i == 0){				//first card	
 			}else if(i == 13) {		//deck
 				x = 649;
-				y = 22;
+				y = 25;
 			} else if(i == 12) {	//trump card
 				x = 559;
-				y = 22;
+				y = 25;
 			} else if(i % 2 == 1){	//odd card
 				x += 20;
 				y += 20;

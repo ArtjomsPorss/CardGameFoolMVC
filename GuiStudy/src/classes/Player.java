@@ -18,10 +18,17 @@ public class Player extends Cards{
 		super.addCard(pile.remove(0));
 	}
 	
+	
 	//draws hand of 6 cards
 	public void drawHand(ArrayList<Card> deck){
 		while(super.getCards().size() < 6){
 			super.addCard(deck.remove(0));
 		}
+	}
+	
+	
+	//draws all cards from target ArrayList
+	public void drawAll(ArrayList<Card> pile){
+		super.getCards().addAll(pile);
 	}
 }
