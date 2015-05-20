@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JTextArea;
 
 public class GUI {
 	//INSTANCE VARIABLES===========================
@@ -36,6 +37,8 @@ public class GUI {
 	//lower panel with cards
 	private JScrollPane scrollLower;
 	protected JPanel panelLower;
+	
+	protected JTextArea infoText; //used to show messages to the user
 
 	//holds coordinates with cards
 	private Point[] coords = new Point[14]; //0 - 11 cards on table, 12trump, 13deck
@@ -91,6 +94,17 @@ public class GUI {
 		lblDeck.setForeground(Color.WHITE);
 		lblDeck.setBounds(668, 8, 46, 14);
 		frame.getContentPane().add(lblDeck);
+		
+		infoText = new JTextArea();
+		infoText.setWrapStyleWord(true);
+		infoText.setLineWrap(true);
+		infoText.setEditable(false);
+		infoText.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		infoText.setBackground(Color.GRAY);
+		infoText.setForeground(Color.WHITE);
+		infoText.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		infoText.setBounds(525, 385, 234, 146);
+		frame.getContentPane().add(infoText);
 	}
 
 

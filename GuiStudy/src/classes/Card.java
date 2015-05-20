@@ -142,4 +142,21 @@ public final class Card extends JPanel{
 		return rankStr;
 	}// end rankToStr
 
+	
+	//returns integer representation of card's rank
+	public static int rankToInt(String rank){
+		int number = 0;
+		if(rank.equals("J")){
+			number = 11;
+		}else if(rank.equals("Q")){
+			number = 12;
+		}else if(rank.equals("K")){
+			number = 13;
+		}else if(rank.equals("A")){
+			number = 14;
+		}else{
+			number = Integer.parseInt(rank);
+		}
+		return number;
+	}
 }

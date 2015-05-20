@@ -70,6 +70,11 @@ public class Deck extends Cards{
 		}while(super.getCards().get(super.getCards().size()-1).getRank().equals("A"));
 		
 		trumps = super.getCards().get(super.getCards().size()-1).getSuit();		//set trumps
-		System.out.println("" + trumps);
+		System.out.println("Trumps are: " + trumps);
 	}//shuffleDeck()
+	
+	
+	public char getTrump(){
+		return trumps;
+	}
 }
