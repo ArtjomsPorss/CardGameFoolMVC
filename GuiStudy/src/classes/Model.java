@@ -1,3 +1,7 @@
+/**
+ * Holds game state
+ */
+
 package classes;
 
 import java.awt.Component;
@@ -34,5 +38,5 @@ public class Model {
 
 	
 	//INSTANCE METHODS=====================================
-	
+
 }

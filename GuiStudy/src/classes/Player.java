@@ -1,3 +1,7 @@
+/**
+ * holds player-related information as well as performs player actions like move, defend, draw cards etc
+ */
+
 package classes;
 
 import java.util.ArrayList;

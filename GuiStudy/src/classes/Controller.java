@@ -1,3 +1,7 @@
+/**
+ * performs game focused actions and acts as event handler
+ */
+
 package classes;
 
 import java.awt.event.ActionEvent;
@@ -17,6 +21,7 @@ public class Controller implements MouseListener{
 	public Controller(GUI gui, Model model){
 		this.gui = gui;
 		this.model = model;
+		model.deck.addListeners(this);
 		model.player1.drawHand(model.deck.getCards());
 		model.player2.drawHand(model.deck.getCards());		
 		
@@ -32,9 +37,12 @@ public class Controller implements MouseListener{
 	//INSTANCE METHODS=======================
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		String cardName = e.getComponent().toString();
-		System.out.println(cardName + " has been pressed");
+		if(e.getComponent().getClass().isInstance(new Card())){		// TODO how to compare class of object that caused event to Card class without creating actual card? 
+			String cardName = e.getComponent().toString();
+			System.out.println(cardName + " has been pressed");			
+		} else {
+			System.out.println("Something else has been pressed");				
+		}
 	}
 
 

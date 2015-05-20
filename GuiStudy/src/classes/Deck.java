@@ -1,3 +1,7 @@
+/**
+ * holds deck of cards and performs deck related actions e.g. create deck, shuffle deck
+ */
+
 package classes;
 
 import java.util.ArrayList;
@@ -6,7 +10,6 @@ import java.util.Random;
 
 public class Deck extends Cards{
 	//INSTANCE VARIABLES==================================
-	private ArrayList<Card> deck = new ArrayList<>(36);	//ArrayList does reindexing if element was removed
 	private char trumps;
 	
 	
@@ -50,6 +53,14 @@ public class Deck extends Cards{
 			}
 		}
 	}//END createDeck
+	
+	
+	//add listeners to cards
+	public void addListeners(Controller listener){
+		for(Card c : super.getCards()){
+			c.addMouseListener(listener);
+		}
+	}
 	
 	
 	// Shuffle deck algorithm

@@ -1,3 +1,6 @@
+/**
+ * base class for classes that have ArrayLists of cards
+ */
 package classes;
 
 import java.util.ArrayList;

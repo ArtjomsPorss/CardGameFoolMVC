@@ -1,3 +1,6 @@
+/**
+ * holds state and behaviour of every card
+ */
 package classes;
 
 import java.awt.Color;
