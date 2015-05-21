@@ -8,8 +8,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,13 +27,6 @@ public class Model {
 	protected Player defender;
 	protected Table table;
 	protected Discard discard;
-	
-	/*
-	 * Determines state of the game.
-	 * 0 - attacker attack
-	 * 1 - 
-	 */
-	private int state = 0;	
 	
 	
 	//CONSTRUCTOR=====================================
@@ -89,14 +84,5 @@ public class Model {
 				return "None has trumps, randomly player 2 goes first";
 			}
 		}
-	}// assignAttackerDefender()
-	
-	
-	//handles the event from cards
-	public void handler(MouseEvent e){
-		if(attacker.getCards().contains(e.getSource())){	//if card clicked in attackers hand, move it to table
-			int index = attacker.getCards().indexOf(e.getSource());
-			table.getCards().add(attacker.getCards().remove(index));
-		}
-	}
+	}// assignAttackerDefender()	
 }

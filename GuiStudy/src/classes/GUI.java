@@ -25,6 +25,11 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextArea;
+import javax.swing.JButton;
+import java.awt.Insets;
+import javax.swing.border.CompoundBorder;
+import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
 
 public class GUI {
 	//INSTANCE VARIABLES===========================
@@ -39,6 +44,7 @@ public class GUI {
 	protected JPanel panelLower;
 	
 	protected JTextArea infoText; //used to show messages to the user
+	protected JButton btnEnd;		//used to end every phase
 
 	//holds coordinates with cards
 	private Point[] coords = new Point[14]; //0 - 11 cards on table, 12trump, 13deck
@@ -59,12 +65,13 @@ public class GUI {
 
 		//testing version of scrollpane with panel assigned to it
 		panelUpper = new JPanel();
+		panelUpper.setName("upper");
 		panelUpper.setBackground(Color.LIGHT_GRAY);
 		panelUpper.setLayout(null);
 		//test.setPreferredSize(new Dimension(500,127));
 		scrollUpper = new JScrollPane(panelUpper);
 		scrollUpper.setLocation(15, 10);
-		scrollUpper.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollUpper.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollUpper.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		panelUpper.setAutoscrolls(true);
 		scrollUpper.setSize(new Dimension(500,146));	//if there are cards to be scrolled
@@ -72,12 +79,13 @@ public class GUI {
 
 		//Lower panel and scroll pane for cards
 		panelLower = new JPanel();
+		panelLower.setName("lower");	//to control to resize and adjust scroll bar for component
 		panelLower.setBackground(Color.LIGHT_GRAY);
 		panelLower.setLayout(null);
 		//test.setPreferredSize(new Dimension(500,127));
 		scrollLower = new JScrollPane(panelLower);
 		scrollLower.setLocation(15, 385);
-		scrollLower.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollLower.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollLower.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		panelLower.setAutoscrolls(true);
 		scrollLower.setSize(new Dimension(500,146));	//if there are cards to be scrolled
@@ -103,8 +111,15 @@ public class GUI {
 		infoText.setBackground(Color.GRAY);
 		infoText.setForeground(Color.WHITE);
 		infoText.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		infoText.setBounds(525, 385, 234, 146);
+		infoText.setBounds(525, 404, 234, 127);
 		frame.getContentPane().add(infoText);
+		
+		btnEnd = new JButton("Pass turn");
+		btnEnd.setBorder(new CompoundBorder(UIManager.getBorder("Button.border"), null));
+		btnEnd.setBackground(Color.WHITE);
+		btnEnd.setMargin(new Insets(2, 4, 2, 4));
+		btnEnd.setBounds(525, 385, 234, 18);
+		frame.getContentPane().add(btnEnd);
 	}
 
 
@@ -113,13 +128,11 @@ public class GUI {
 
 	//adds cards to panel with scroll pane
 	public void showCardsInPanel(ArrayList<Card> cards, JPanel component, boolean flipped){
-		System.out.println("entered showCardsInPanel()");
-
+		
 		int location = 2;
 		//TODO if both setSize and setPreferredSize for component are used, it always appears on screen, otherwise sometimes it is not shown 
 		component.setPreferredSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));	//works fine if array is not breaked
 		component.setSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));
-		System.out.println("Component sizes are set");
 
 		for(Card c : cards){
 			//component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 2, component.getHeight()));		//increasing size of the panel for every card shown in it
@@ -129,11 +142,6 @@ public class GUI {
 			//c.addMouseListener(control);
 			location += 81;
 		}
-
-		//testing printouts
-		System.out.println("Cards are added");
-		//System.out.println("JScrollPane sizes: " + gui.scrollPane.getPreferredSize().width + " " + gui.scrollPane.getPreferredSize().height);
-		System.out.println("Component sizes: " + component.getPreferredSize().width + " " + component.getPreferredSize().height);
 	}
 
 
@@ -195,7 +203,7 @@ public class GUI {
 	public void showTable(ArrayList<Card> table){
 		//cards to be shown last on top, should be added in reverse order
 		for(int i = table.size()-1; i >= 0; --i){
-			frame.add(table.get(i));
+			frame.getContentPane().add(table.get(i));
 			table.get(i).setLocation(coords[i]);
 		}
 	}
