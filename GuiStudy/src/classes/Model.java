@@ -27,8 +27,8 @@ public class Model {
 	protected Player defender;
 	protected Table table;
 	protected Discard discard;
-	
-	
+
+
 	//CONSTRUCTOR=====================================
 	public Model(){
 		this.deck = new Deck();
@@ -37,13 +37,13 @@ public class Model {
 		this.table = new Table();
 		this.discard = new Discard();
 	}
-	
-	
+
+
 	//CLASS METHODS=========================================
 
-	
+
 	//INSTANCE METHODS=====================================
-	
+
 	/**
 	 * Checks and assigns who goes first
 	 * Player with trump in hand of lowest rank goes first
@@ -85,4 +85,50 @@ public class Model {
 			}
 		}
 	}// assignAttackerDefender()	
+
+
+
+	// checks if defending player has cards of same suit higher rank or trumps be able to defend
+	protected boolean checkDefend(MouseEvent e){
+		Card players = (Card) e.getComponent();	//set card that player clicked
+		Card onTable = table.getCards().get(table.getCards().size()-1);	//get last card on table
+		if(players.getSuit() == onTable.getSuit()){								//if cards are of same suit
+			if(Card.rankToInt(players.getRank()) > Card.rankToInt(onTable.getRank())){	//and players card is of higher rank
+				return true;																//players card beats card on table -> return true
+			}else{																		//if rank of players card is not higher
+				return false;																//players card doesn't beat card on table -> return false
+			}
+		}else if(players.getSuit() == deck.getTrump() && onTable.getSuit() != deck.getTrump()){	//players card is trump and on table is not a trump
+			return true;														//players card beats card on table
+		}else{						//cards are of different suits and players card is not trump
+			return false;				// player cannot beat card on table -> return false
+		}
+
+	}
+	
+	
+	//checks if card is eligible to add to table
+	protected boolean canAdd(MouseEvent e){
+		Card players = (Card) e.getComponent();	//set card that player clicked
+		//only card of same rank can be added to table
+		for(int t = 0; t < table.getCards().size(); ++t){
+			if(table.getCards().get(t).getRank().equals(players.getRank())){
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	//switches attacker and defender
+	public void switchAttackerDefender() {
+		Player temp = attacker;
+		attacker = defender;
+		defender = temp;
+		temp = null;	
+	}
+	
+	public void moveTableToDiscard(){
+		
+	}
 }

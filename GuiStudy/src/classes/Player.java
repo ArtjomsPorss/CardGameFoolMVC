@@ -33,12 +33,8 @@ public class Player extends Cards{
 	
 	//draws all cards from target ArrayList
 	public void drawAll(ArrayList<Card> pile){
-		super.getCards().addAll(pile);
-	}
-	
-	
-	//makes first attack move
-	public void attack(){
-		
+		while(pile.size() > 0){
+			super.getCards().add(pile.remove(0));
+		}
 	}
 }

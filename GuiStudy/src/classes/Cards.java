@@ -16,9 +16,9 @@ public class Cards {
 		this.cards = cards;
 	}
 	
-	//METHODS
+	//INSTANCE METHODS
 	//returns cards
-	public ArrayList<Card> getCards(){
+	protected ArrayList<Card> getCards(){
 		return cards;
 	}
 	
@@ -28,4 +28,11 @@ public class Cards {
 		cards.add(c);
 	}
 	
+	
+	//CLASS METHODS
+//	public static void moveFromTo(ArrayList<Card> from, ArrayList<Card> to){
+//		for(Card c : from){
+//			to.add(from.remove(0));
+//		}
+//	}
 }

@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 
-public final class Card extends JPanel{
+public class Card extends JPanel{
 
 	//INSTANCE VARIABLES====================================
 	private char suit;
@@ -30,6 +30,7 @@ public final class Card extends JPanel{
 	//CONSTRUCTORS===========================================
 	public Card(){
 		this.setSize(80, 123);
+		this.setOpaque(true);
 	}
 
 	public Card(String rank, char suit){

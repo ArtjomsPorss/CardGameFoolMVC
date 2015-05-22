@@ -43,11 +43,15 @@ public class GUI {
 	private JScrollPane scrollLower;
 	protected JPanel panelLower;
 	
+	protected JPanel tablePanel;
+	
 	protected JTextArea infoText; //used to show messages to the user
 	protected JButton btnEnd;		//used to end every phase
 
 	//holds coordinates with cards
 	private Point[] coords = new Point[14]; //0 - 11 cards on table, 12trump, 13deck
+	
+	private int cardsOnTable = 0;
 
 
 	//CONSTRUCTOR====================================
@@ -62,13 +66,29 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
+		
+		tablePanel = new JPanel();
+		tablePanel.setSize(new Dimension(775,570));
+		tablePanel.setBackground(Color.DARK_GRAY);
+		tablePanel.setOpaque(false);
+		tablePanel.setLayout(null);
+		frame.getContentPane().add(tablePanel);
+		
+		JLabel lblPlayer = new JLabel("Player 1");
+		lblPlayer.setForeground(Color.WHITE);
+		lblPlayer.setBounds(38, 367, 46, 14);
+		frame.add(lblPlayer);
+		
+		JLabel lblPlayer_1 = new JLabel("Player 2");
+		lblPlayer_1.setForeground(Color.WHITE);
+		lblPlayer_1.setBounds(38, 158, 46, 14);
+		frame.add(lblPlayer_1);
 
 		//testing version of scrollpane with panel assigned to it
 		panelUpper = new JPanel();
 		panelUpper.setName("upper");
 		panelUpper.setBackground(Color.LIGHT_GRAY);
 		panelUpper.setLayout(null);
-		//test.setPreferredSize(new Dimension(500,127));
 		scrollUpper = new JScrollPane(panelUpper);
 		scrollUpper.setLocation(15, 10);
 		scrollUpper.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -125,6 +145,15 @@ public class GUI {
 
 	//INSTANCE METHODS=========================
 
+	
+	//shows all cards in game
+	public void showCards(ArrayList<Card> p1, ArrayList<Card> p2, ArrayList<Card> table, ArrayList<Card> deck){
+		showCardsInPanel(p1, panelLower, false);
+		showCardsInPanel(p2, panelUpper, false);
+		tablePanel.removeAll();
+		showDeckOnTable(deck);
+		showTable(table);
+	}
 
 	//adds cards to panel with scroll pane
 	public void showCardsInPanel(ArrayList<Card> cards, JPanel component, boolean flipped){
@@ -169,24 +198,10 @@ public class GUI {
 	}
 	
 	
-	//shows card on table
-	public void showCardOnTable(ArrayList<Card> cards){
-		/*
-		 * cards are added in reversed order because otherwise first card
-		 * will be shown on top of the next one
-		 */
-		for(int i = coords.length - 3; i > -1; --i){	
-			frame.getContentPane().add(cards.get(i));
-			cards.get(i).setLocation(coords[i]);
-			cards.get(i).setFlipped(false);
-		}
-	}
-	
-	
 	//shows deck and trumps
 	public void showDeckOnTable(ArrayList<Card> deck){
 		for(int i = 0; i < deck.size(); ++i){
-			frame.getContentPane().add(deck.get(i));
+			tablePanel.add(deck.get(i));
 			if(i != deck.size() - 1){	//if its not last card in deck
 				deck.get(i).setLocation(coords[13]);	//show in deck position
 				deck.get(i).setFlipped(true);
@@ -199,21 +214,19 @@ public class GUI {
 	}
 	
 	
-	//show cards on table
+
+	/*
+	 * show cards on table
+	 * cards are added in reversed order because otherwise first card
+	 * will be shown on top of the next one
+	 */
 	public void showTable(ArrayList<Card> table){
 		//cards to be shown last on top, should be added in reverse order
 		for(int i = table.size()-1; i >= 0; --i){
-			frame.getContentPane().add(table.get(i));
+			tablePanel.add(table.get(i));
 			table.get(i).setLocation(coords[i]);
 		}
-	}
-	
-	
-	//shows all cards in game
-	public void showCards(ArrayList<Card> p1, ArrayList<Card> p2, ArrayList<Card> table, ArrayList<Card> deck){
-		showCardsInPanel(p1, panelLower, false);
-		showCardsInPanel(p2, panelUpper, false);
-		showTable(table);
-		showDeckOnTable(deck);
+		
+		tablePanel.repaint();
 	}
 }

@@ -17,16 +17,16 @@ import javax.swing.JPanel;
 public class Controller implements MouseListener{
 	private GUI gui;
 	private Model model;
-	boolean attacked = false;
 	
 	/*
 	 * Determines state of the game.
-	 * 0 - attacker attacks or wins the game if no cards in hand 
+	 * 0 - attacker attacks or adds or wins the game if no cards in hand 
 	 * 1 - defender defends(move to phase 2) or draws cards if nothing to defend with(moves to)
-	 * 2 - attacker ads if have anything to add - goes back to 1, if nothing to add - goes to 3
+	 * 2 - 
 	 * 3 - 
 	 */
 	private int phase = 0;	
+	private boolean firstAttackOnTurn = true;
 	
 	private boolean actionDone = false;		//determines whether player performed action or not
 	
@@ -45,14 +45,16 @@ public class Controller implements MouseListener{
 		
 		gui.infoText.setText(model.assignAttackerDefender());	//assign attacker and defender
 		
+		//TODO in showCards method pass phase number to gui to display appropriate message to the user
 		gui.showCards(model.player1.getCards(), model.player2.getCards(), model.table.getCards(), model.deck.getCards());
+		
 	}
 	
 
 	//INSTANCE METHODS=======================
 
 	//returns true if source of event is card in attackers hand
-	private boolean isAttacker(MouseEvent e){
+	private boolean isAttackersCard(MouseEvent e){
 		if(model.attacker.getCards().contains(e.getSource())){
 			return true;
 		}else{
@@ -77,31 +79,98 @@ public class Controller implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(phase == 0){						//attacker attacks phase
-			if(isButton(e)){					//button is used to end turn ONLY
-				if(actionDone){
-					++phase;					//pass turn
-					actionDone = false;			
-					System.out.println("Button clicked phase: " + phase + ", actionDone = " + actionDone);
-				}else{
-					gui.infoText.setText("Attacker must make move with one of his cards");
-				}
-			}else if(isAttacker(e) && !actionDone){		//if card clicked in attackers hand(for the first time) move it to table
+			phaseZero(e);
+		}else if(phase == 1){
+			phaseOne(e);
+		}
+		
+		gui.showCards(model.player1.getCards(), model.player2.getCards(), model.table.getCards(), model.deck.getCards());
+	}
+	
+	
+	//performs actions in phase zero which is attackers first move or attacker adds to table
+	private void phaseZero(MouseEvent e){
+		if(isButton(e)){					//button is used to end turn ONLY
+			if(actionDone){
+				++phase;					//pass turn
+				actionDone = false;			//reset action done
+				gui.infoText.setText("Defending player choose card to defend. In order to defend pick card of same suit and higher rank or trump card.");
+			}else if(!actionDone && !firstAttackOnTurn){		//player decided not to add more cards for defending player to defend 
+				model.table.moveCardsTo(model.discard.getCards());//move cards to discard pile
+				
+				model.switchAttackerDefender();					//attacker and defender are switched
+				
+				model.attacker.drawHand(model.deck.getCards());		//attacker draws hand of cards
+				model.defender.drawHand(model.deck.getCards());		//defender draws hand of cards
+				firstAttackOnTurn = true;						//new attacker MUST perform his first move
+				System.out.println("Cards are moved to discard");
+			}else{
+				gui.infoText.setText("Attacking player must make move with one of his cards");
+			}
+		}else if(isAttackersCard(e) && !actionDone && firstAttackOnTurn){		//if card clicked in attackers hand(for the first time) move it to table
+			//move card to table
+			int index = model.attacker.getCards().indexOf(e.getSource());
+			model.table.getCards().add(model.attacker.getCards().remove(index));
+			
+			actionDone = true;	//action on players turn is done
+			firstAttackOnTurn = false;	//first attack is done
+			
+			gui.infoText.setText("Press button to pass turn to defending player");
+		}else if(isAttackersCard(e) && !actionDone && !firstAttackOnTurn){			//if attacking player adds cards to table
+			if(model.canAdd(e)){				//if card chosen is eligible, add it to table
 				int index = model.attacker.getCards().indexOf(e.getSource());
 				model.table.getCards().add(model.attacker.getCards().remove(index));
 				actionDone = true;
-				System.out.println("Button clicked phase: " + phase + ", actionDone = " + actionDone);
-				gui.infoText.setText("Press button to pass turn");
+				
+				gui.infoText.setText("Press button to pass turn to defending player");
 			}else{
-				gui.infoText.setText("These are not cards from your hand");	
+				gui.infoText.setText("Only cards of rank same that is present on table can be added. Or press button to pass turn.");	
 			}
-			gui.showCards(model.player1.getCards(), model.player2.getCards(), model.table.getCards(), model.deck.getCards());
+		}else if(isAttackersCard(e) && actionDone){
+			gui.infoText.setText("Press button to pass turn to defending player");
+		}else{
+			gui.infoText.setText("These cards are not from your hand");	
+		}
+		
+	}
+	
+	
+	//handles actions of defending player
+	private void phaseOne(MouseEvent e){
+		if(isButton(e)){
+			if(actionDone){		//defending player used one of his cards to defend
+				--phase;
+				actionDone = false;
+				
+				gui.infoText.setText("Attacking player can add card to table of same rank that is present on table");
+			}else{
+				model.defender.drawAll(model.table.getCards());//defender takes all cards
+				model.attacker.drawHand(model.deck.getCards());		//attacker draws cards
+				--phase;		//attacker goes again
+				firstAttackOnTurn = true;	//attacker will attack for first time on new turn
+
+			}
+		}else if(!isAttackersCard(e) && !actionDone){	//if it's a card in defending players hand and haven't performed any actions yet
+			if(model.checkDefend(e)){	//if card pressed can beat card on table
+				//move that card to table
+				int index = model.defender.getCards().indexOf(e.getSource());
+				model.table.getCards().add(model.defender.getCards().remove(index));
+				
+				actionDone = true;			//player defended successfully
+				gui.infoText.setText("Press button to pass turn to attacking player.");	
+			}else{						//if chosen card cannot beat card on table
+				gui.infoText.setText("Choose a card of same suit and higher rank or trump to defend");
+			}
+		}else if(!isAttackersCard(e) && actionDone){
+			gui.infoText.setText("Press button to pass turn to attacking player.");
 		}
 	}
 	
 	
-
-	
-
+//	//attacking player adds card to table
+//	private void phaseThree(MouseEvent e){
+//		
+//	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {}

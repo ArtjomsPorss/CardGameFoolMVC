@@ -13,7 +13,9 @@ public class Table extends Cards{
 	//INSTANCE METHODS
 	//move cards from table to specified ArrayList
 	public void moveCardsTo(ArrayList<Card> toPile){
-		toPile.addAll(super.getCards());
+		while(super.getCards().size() > 0){
+			toPile.add(super.getCards().remove(0));
+		}
 	}
 
 }
