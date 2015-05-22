@@ -30,6 +30,7 @@ import java.awt.Insets;
 import javax.swing.border.CompoundBorder;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
+import javax.swing.SwingConstants;
 
 public class GUI {
 	//INSTANCE VARIABLES===========================
@@ -79,12 +80,12 @@ public class GUI {
 		JLabel lblPlayer = new JLabel("Player 1");
 		lblPlayer.setForeground(Color.WHITE);
 		lblPlayer.setBounds(38, 367, 46, 14);
-		frame.add(lblPlayer);
+		frame.getContentPane().add(lblPlayer);
 		
 		JLabel lblPlayer_1 = new JLabel("Player 2");
 		lblPlayer_1.setForeground(Color.WHITE);
 		lblPlayer_1.setBounds(38, 158, 46, 14);
-		frame.add(lblPlayer_1);
+		frame.getContentPane().add(lblPlayer_1);
 
 		//testing version of scrollpane with panel assigned to it
 		panelUpper = new JPanel();
@@ -114,9 +115,10 @@ public class GUI {
 		frame.getContentPane().add(scrollLower);
 		
 		lblTrumps = new JLabel("Trumps");
+		lblTrumps.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTrumps.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblTrumps.setForeground(Color.WHITE);
-		lblTrumps.setBounds(577, 8, 46, 14);
+		lblTrumps.setBounds(525, 8, 133, 14);
 		frame.getContentPane().add(lblTrumps);
 		
 		JLabel lblDeck = new JLabel("Deck");
