@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Deck extends Cards{
 	//INSTANCE VARIABLES==================================
-	private char trumps;
+	private static char trumps;
 	
 	
 	//CONSTRUCTOR=========================================
@@ -74,7 +74,7 @@ public class Deck extends Cards{
 	}//shuffleDeck()
 	
 	
-	public char getTrump(){
+	public static char getTrump(){
 		return trumps;
 	}
 }

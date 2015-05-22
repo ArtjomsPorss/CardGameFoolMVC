@@ -64,7 +64,6 @@ public class Controller implements MouseListener{
 	
 	
 	//check if a button was clicked
-	//TODO is this way works fine?
 	private boolean isButton(MouseEvent e){
 		if(e.getComponent().getClass().isInstance(new JButton())){
 			return true;
@@ -74,7 +73,6 @@ public class Controller implements MouseListener{
 	}
 	
 	//handles the event from cards
-	//TODO create state why not to use int state, which changes depending on game state and
 	//depending on which appropriate checks and actions are performed on cards, when their events are handled
 	@Override
 	public void mouseClicked(MouseEvent e) {

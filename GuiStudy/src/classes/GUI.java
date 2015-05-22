@@ -35,6 +35,8 @@ public class GUI {
 	//INSTANCE VARIABLES===========================
 	private JFrame frame;
 
+	JLabel lblTrumps;
+	
 	//upper panel with cards
 	private JScrollPane scrollUpper;
 	protected JPanel panelUpper;
@@ -111,7 +113,7 @@ public class GUI {
 		scrollLower.setSize(new Dimension(500,146));	//if there are cards to be scrolled
 		frame.getContentPane().add(scrollLower);
 		
-		JLabel lblTrumps = new JLabel("Trumps");
+		lblTrumps = new JLabel("Trumps");
 		lblTrumps.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblTrumps.setForeground(Color.WHITE);
 		lblTrumps.setBounds(577, 8, 46, 14);
@@ -159,7 +161,7 @@ public class GUI {
 	public void showCardsInPanel(ArrayList<Card> cards, JPanel component, boolean flipped){
 		
 		int location = 2;
-		//TODO if both setSize and setPreferredSize for component are used, it always appears on screen, otherwise sometimes it is not shown 
+		//if both setSize and setPreferredSize for component are used, it always appears on screen, otherwise sometimes it is not shown 
 		component.setPreferredSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));	//works fine if array is not breaked
 		component.setSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));
 
@@ -210,7 +212,18 @@ public class GUI {
 				deck.get(i).setLocation(coords[12]);	//show in trumps position
 				deck.get(i).setFlipped(false);				
 			}
+		}
+		//if no cards are in deck, show trumps in trumps label
+		if(deck.size() == 0){
+			String trumps = "";
+			switch(Deck.getTrump()){
+			case 'S' : trumps = "Spades"; break;
+			case 'C' : trumps = "Clubs"; break;
+			case 'D' : trumps = "Diamonds"; break;
+			case 'H' : trumps = "Hearts"; break;
+			}
 			
+			lblTrumps.setText("Trumps are " + trumps);
 		}
 	}
 	
