@@ -26,7 +26,9 @@ public class Player extends Cards{
 	//draws hand of 6 cards
 	public void drawHand(ArrayList<Card> deck){
 		while(super.getCards().size() < 6){
-			super.addCard(deck.remove(0));
+			if(deck.size() > 0){
+				super.addCard(deck.remove(0));
+			}
 		}
 	}
 	

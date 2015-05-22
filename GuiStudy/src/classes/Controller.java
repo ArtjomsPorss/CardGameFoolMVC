@@ -87,7 +87,7 @@ public class Controller implements MouseListener{
 		gui.showCards(model.player1.getCards(), model.player2.getCards(), model.table.getCards(), model.deck.getCards());
 	}
 	
-	
+	//TODO in all phases when no more actions can be performed by user - pass turn 
 	//performs actions in phase zero which is attackers first move or attacker adds to table
 	private void phaseZero(MouseEvent e){
 		if(isButton(e)){					//button is used to end turn ONLY
@@ -167,10 +167,6 @@ public class Controller implements MouseListener{
 	}
 	
 	
-//	//attacking player adds card to table
-//	private void phaseThree(MouseEvent e){
-//		
-//	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {}

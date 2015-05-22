@@ -121,14 +121,11 @@ public class Model {
 
 
 	//switches attacker and defender
-	public void switchAttackerDefender() {
+	protected void switchAttackerDefender() {
 		Player temp = attacker;
 		attacker = defender;
 		defender = temp;
 		temp = null;	
 	}
 	
-	public void moveTableToDiscard(){
-		
-	}
 }

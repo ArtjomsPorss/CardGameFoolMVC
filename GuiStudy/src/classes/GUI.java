@@ -200,6 +200,7 @@ public class GUI {
 	
 	//shows deck and trumps
 	public void showDeckOnTable(ArrayList<Card> deck){
+		//TODO if no cards are in deck, think of how to show trumps??
 		for(int i = 0; i < deck.size(); ++i){
 			tablePanel.add(deck.get(i));
 			if(i != deck.size() - 1){	//if its not last card in deck
