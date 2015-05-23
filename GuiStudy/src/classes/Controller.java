@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Controller implements MouseListener{
@@ -72,6 +73,7 @@ public class Controller implements MouseListener{
 		}
 	}
 	
+	
 	//handles the event from cards
 	//depending on which appropriate checks and actions are performed on cards, when their events are handled
 	@Override
@@ -83,10 +85,18 @@ public class Controller implements MouseListener{
 		}
 		
 		gui.showCards(model.player1.getCards(), model.player2.getCards(), model.table.getCards(), model.deck.getCards());
+		model.winCheck(gui.frame);
 	}
 	
-	//TODO in all phases when no more actions can be performed by user - pass turn 
-	//performs actions in phase zero which is attackers first move or attacker adds to table
+	
+	/**
+	 * Handles events passed from buttons or cards. Method is used for several purposes.
+	 * It allows attacker to make first move by attacking defending player with one of his cards.
+	 * It allows attacker to add card to table after defender beats first attack card.
+	 * It passes turn on button press in case if attacking player decides not to add cards to table.
+	 * 
+	 * @param e MouseEvent passed from button or cards pressed
+	 */
 	private void phaseZero(MouseEvent e){
 		if(isButton(e)){					//button is used to end turn ONLY
 			if(!firstAttackOnTurn){		//player decided not to add more cards for defending player to defend 
@@ -97,7 +107,7 @@ public class Controller implements MouseListener{
 				model.attacker.drawHand(model.deck.getCards());		//attacker draws hand of cards
 				model.defender.drawHand(model.deck.getCards());		//defender draws hand of cards
 				firstAttackOnTurn = true;						//new attacker MUST perform his first move
-				System.out.println("Cards are moved to discard");
+
 			}else{
 				gui.infoText.setText("Attacking player must make move with one of his cards");
 			}
@@ -129,11 +139,17 @@ public class Controller implements MouseListener{
 		}else{
 			gui.infoText.setText("These cards are not from your hand");	
 		}
-		
 	}
 	
 	
-	//handles actions of defending player
+	/**
+	 * Handles defending player phase.
+	 * Defending player can beat card that attacker placed on table.
+	 * Defending player can choose to take cards instead of beating them if he/she doesn't have card to beat with,
+	 * or finds that taking card is better in this situation.
+	 * 
+	 * @param e MouseEvent passed from cards or button
+	 */
 	private void phaseOne(MouseEvent e){
 		if(isButton(e)){
 				model.defender.drawAll(model.table.getCards());//defender takes all cards
@@ -154,6 +170,7 @@ public class Controller implements MouseListener{
 			}
 		}
 	}
+	
 	
 	
 

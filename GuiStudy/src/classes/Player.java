@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 public class Player extends Cards{
 	//INSTANCE VARIABLES===========================
-
+	String name = "";
 
 	//CONSTRUCTOR==================================
-	public Player(){
+	public Player(String name){
 		super(new ArrayList<Card>());
+		this.name = name;
 	}
 
 	//METHODS======================================
@@ -40,5 +41,11 @@ public class Player extends Cards{
 		while(pile.size() > 0){
 			super.getCards().add(pile.remove(0));
 		}
+	}
+	
+	
+	//returns player name
+	public String getName(){
+		return this.name;
 	}
 }

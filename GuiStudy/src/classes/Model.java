@@ -6,6 +6,7 @@ package classes;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -32,8 +35,8 @@ public class Model {
 	//CONSTRUCTOR=====================================
 	public Model(){
 		this.deck = new Deck();
-		this.player1 = new Player();
-		this.player2 = new Player();
+		this.player1 = new Player("First player");
+		this.player2 = new Player("Second player");
 		this.table = new Table();
 		this.discard = new Discard();
 	}
@@ -105,8 +108,8 @@ public class Model {
 		}
 
 	}
-	
-	
+
+
 	//checks if card is eligible to add to table
 	protected boolean canAdd(MouseEvent e){
 		Card players = (Card) e.getComponent();	//set card that player clicked
@@ -127,5 +130,26 @@ public class Model {
 		defender = temp;
 		temp = null;	
 	}
-	
+
+
+	//check win
+	protected void winCheck(JFrame frame){
+		JLabel message = new JLabel();
+		message.setFont(new Font("Consolas", Font.BOLD, 20));
+		
+		if(deck.getCards().size() == 0){
+			if(attacker.getCards().size() == 0 && defender.getCards().size() > 0){
+				message.setText(attacker.getName() + "player won! Player with no cards in hand wins");
+				JOptionPane.showMessageDialog(frame, message);
+			}else if(attacker.getCards().size() > 0 && defender.getCards().size() == 0){
+				message.setText(defender.getName() + "player won! Player with no cards in hand wins");
+				JOptionPane.showMessageDialog(frame, message);
+			}else if(attacker.getCards().size() == 0 && defender.getCards().size() == 0){
+				message.setText("Draw! Player with no cards in hand wins");
+				JOptionPane.showMessageDialog(frame, message);
+			}
+		}
+
+	}
+
 }

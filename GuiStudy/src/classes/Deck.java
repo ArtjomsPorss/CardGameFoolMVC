@@ -64,13 +64,12 @@ public class Deck extends Cards{
 	
 	
 	// Shuffle deck algorithm
-	public void shuffleDeck(){	//shuffle while trump card is ace
+	public void shuffleDeck(){	//bottom cards suit in shuffled deck becomes trumps
 		do{
 			Collections.shuffle(super.getCards());
-		}while(super.getCards().get(super.getCards().size()-1).getRank().equals("A"));
+		}while(super.getCards().get(super.getCards().size()-1).getRank().equals("A"));	//bottom card cannot be Ace
 		
 		trumps = super.getCards().get(super.getCards().size()-1).getSuit();		//set trumps
-		System.out.println("Trumps are: " + trumps);
 	}//shuffleDeck()
 	
 	
