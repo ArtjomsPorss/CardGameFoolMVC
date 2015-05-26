@@ -46,7 +46,7 @@ public class Controller implements MouseListener{
 		
 		gui.infoText.setText(model.assignAttackerDefender());	//assign attacker and defender
 		
-		//TODO in showCards method pass phase number to gui to display appropriate message to the user
+		//??TODO in showCards method pass phase number to gui to display appropriate message to the user??
 		gui.showCards(model.player1.getCards(), model.player2.getCards(), model.table.getCards(), model.deck.getCards());
 		
 	}

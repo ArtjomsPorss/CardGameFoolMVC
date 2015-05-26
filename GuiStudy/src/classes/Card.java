@@ -21,7 +21,6 @@ public class Card extends JPanel{
 	private String rank;
 	private boolean flipped = true;			//if true - cards back is shown, if false - image
 
-
 	//variables used for loading images
 	private BufferedImage image = null;					//image of the card
 	private String fullImagePath;
@@ -47,6 +46,7 @@ public class Card extends JPanel{
 	public void paint(Graphics g){
 		if(!flipped){	//if card is not flipped - show image
 			URL url = Card.class.getClassLoader().getResource(fullImagePath);
+			
 			try {
 				image = ImageIO.read(url);
 			} catch (IOException e) {
@@ -68,7 +68,7 @@ public class Card extends JPanel{
 	 */
 	private void loadImage(){
 		//build path to this cards load image
-		fullImagePath = "images/card/";
+		fullImagePath = "card/";
 
 		//add suit to image path
 		switch(this.suit){
