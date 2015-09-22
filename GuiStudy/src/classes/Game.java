@@ -8,8 +8,6 @@ public class Game {
 	
 	public Game(){
 		runGame();	//deck created and shuffled, cards dealed
-		
-		
 	}
 	
 	private void runGame(){
