@@ -16,17 +16,15 @@ import javax.swing.JPanel;
 
 public class Card extends JPanel{
 
-	//INSTANCE VARIABLES====================================
 	private char suit;
 	private String rank;
 	private boolean flipped = true;			//if true - cards back is shown, if false - image
 
 	//variables used for loading images
-	private BufferedImage image = null;					//image of the card
+	private BufferedImage image = null;				
 	private String fullImagePath;
 
 
-	//CONSTRUCTORS===========================================
 	public Card(){
 		this.setSize(80, 123);
 		this.setOpaque(true);
@@ -40,9 +38,8 @@ public class Card extends JPanel{
 	}
 
 
-	//INSTANCE METHODS=======================================
 
-	//Paints card image or back
+	//Paints cards image or back
 	public void paint(Graphics g){
 		if(!flipped){	//if card is not flipped - show image
 			URL url = Card.class.getClassLoader().getResource(fullImagePath);
@@ -83,14 +80,12 @@ public class Card extends JPanel{
 	}
 
 
-	//CLASS METHODS==========================================
 	//prints cards rank and suit
 	public String toString(){
 		return this.rank + this.suit;
 	}
 
 
-	//card "UP" state getters and setters
 	public void setFlipped(boolean flipped){
 		this.flipped = flipped;
 	}
@@ -100,13 +95,11 @@ public class Card extends JPanel{
 	}
 	
 	
-	// rank getter
 	public String getRank(){
 		return rank;
 	}
 	
 	
-	// suit getter
 	public char getSuit(){
 		return suit;
 	}
@@ -141,7 +134,7 @@ public class Card extends JPanel{
 			}
 		}
 		return rankStr;
-	}// end rankToStr
+	}
 
 	
 	//returns integer representation of card's rank
