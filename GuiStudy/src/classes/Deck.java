@@ -1,7 +1,6 @@
 /**
  * holds deck of cards and performs deck related actions e.g. create deck, shuffle deck
  */
-
 package classes;
 
 import java.util.ArrayList;
@@ -9,18 +8,16 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Deck extends Cards{
-	//INSTANCE VARIABLES==================================
+
 	private static char trumps;
 	
 	
-	//CONSTRUCTOR=========================================
 	public Deck(){
 		super(new ArrayList<Card>());
 		createDeck();
 		shuffleDeck();
 	}
 	
-	//INSTANCE METHODS====================================
 	
 	//creates arrayList of cards
 	private void createDeck(){
@@ -48,11 +45,11 @@ public class Deck extends Cards{
 					rank = Integer.toString(r);		// if rank is below 11, set it
 				}
 
-				//sets suits and rank for current card
+				//adds new card with suit and rank for current card
 				super.addCard(new Card(rank, suit));	
 			}
 		}
-	}//END createDeck
+	}
 	
 	
 	//add listeners to cards
@@ -70,7 +67,7 @@ public class Deck extends Cards{
 		}while(super.getCards().get(super.getCards().size()-1).getRank().equals("A"));	//bottom card cannot be Ace
 		
 		trumps = super.getCards().get(super.getCards().size()-1).getSuit();		//set trumps
-	}//shuffleDeck()
+	}
 	
 	
 	public static char getTrump(){
