@@ -34,7 +34,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 public class GUI {
-	//INSTANCE VARIABLES===========================
 	protected JFrame frame;
 
 	JLabel lblTrumps;
@@ -49,8 +48,8 @@ public class GUI {
 
 	protected JPanel tablePanel;
 
-	protected JTextArea infoText; //used to show messages to the user
-	protected JButton btnEnd;		//used to end every phase
+	protected JTextArea infoText; 	//used to show messages to the user
+	protected JButton btnEnd;	//used to end every phase
 
 	//holds coordinates with cards
 	private Point[] tableCoords = new Point[12];
@@ -66,8 +65,6 @@ public class GUI {
 	private JPanel panel_2;
 
 
-
-	//CONSTRUCTOR====================================
 	public GUI(){
 
 		initTableCoordinates();
@@ -128,7 +125,7 @@ public class GUI {
 		lblPlayerUpper.setBounds(38, 158, 46, 14);
 		frame.getContentPane().add(lblPlayerUpper);
 
-		//testing version of scrollpane with panel assigned to it
+		
 		panelUpper = new JPanel();
 		panelUpper.setName("upper");
 		panelUpper.setBackground(Color.LIGHT_GRAY);
@@ -175,8 +172,6 @@ public class GUI {
 	}
 
 
-	//INSTANCE METHODS=========================
-
 
 	//shows all cards in game
 	public void showCards(ArrayList<Card> p1, ArrayList<Card> p2, ArrayList<Card> table, ArrayList<Card> deck){
@@ -192,15 +187,13 @@ public class GUI {
 
 		int location = 2;
 		//if both setSize and setPreferredSize for component are used, it always appears on screen, otherwise sometimes it is not shown 
-		component.setPreferredSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));	//works fine if array is not breaked
+		component.setPreferredSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));  //works fine if array is not breaked
 		component.setSize(new Dimension((cards.size() * 81) + 4, component.getHeight()));
 
 		for(Card c : cards){
-			//component.setPreferredSize(new Dimension(component.getSize().width + c.getWidth() + 2, component.getHeight()));		//increasing size of the panel for every card shown in it
 			component.add(c);
 			c.setFlipped(flipped); 				//sets is card flipped or not
 			c.setLocation(location, 2);
-			//c.addMouseListener(control);
 			location += 81;
 		}
 	}
@@ -237,7 +230,7 @@ public class GUI {
 	}
 
 
-	//shows deck and trumps
+	//shows deck and trump card
 	public void showDeckOnTable(ArrayList<Card> deck){
 		int cardCounter = 0;
 		if(deck.size() > 0){	//show deck on table if it contains more than 0 cards
