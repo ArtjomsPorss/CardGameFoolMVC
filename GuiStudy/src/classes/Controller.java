@@ -23,8 +23,6 @@ public class Controller implements MouseListener{
 	 * Determines state of the game.
 	 * 0 - attacker attacks or adds or wins the game if no cards in hand 
 	 * 1 - defender defends(move to phase 2) or draws cards if nothing to defend with(moves to)
-	 * 2 - 
-	 * 3 - 
 	 */
 	private int phase = 0;	
 	private boolean firstAttackOnTurn = true;
@@ -32,7 +30,7 @@ public class Controller implements MouseListener{
 	private boolean actionDone = false;		//determines whether player performed action or not
 	
 	
-	//CONSTRUCTOR============================
+
 	public Controller(GUI gui, Model model){
 		this.gui = gui;
 		this.model = model;
@@ -46,13 +44,10 @@ public class Controller implements MouseListener{
 		
 		gui.infoText.setText(model.assignAttackerDefender());	//assign attacker and defender
 		
-		//??TODO in showCards method pass phase number to gui to display appropriate message to the user??
 		gui.showCards(model.player1.getCards(), model.player2.getCards(), model.table.getCards(), model.deck.getCards());
 		
 	}
 	
-
-	//INSTANCE METHODS=======================
 
 	//returns true if source of event is card in attackers hand
 	private boolean isAttackersCard(MouseEvent e){
@@ -64,7 +59,7 @@ public class Controller implements MouseListener{
 	}
 	
 	
-	//check if a button was clicked
+	//returns true if event was raised by the button
 	private boolean isButton(MouseEvent e){
 		if(e.getComponent().getClass().isInstance(new JButton())){
 			return true;
@@ -89,6 +84,7 @@ public class Controller implements MouseListener{
 	}
 	
 	
+	//TODO - no swiss army knives - split this method in several single-purpose methods
 	/**
 	 * Handles events passed from buttons or cards. Method is used for several purposes.
 	 * It allows attacker to make first move by attacking defending player with one of his cards.
@@ -142,6 +138,7 @@ public class Controller implements MouseListener{
 	}
 	
 	
+	//TODO - same no swiss army knives - split this method in several single-purpose methods, KISS
 	/**
 	 * Handles defending player phase.
 	 * Defending player can beat card that attacker placed on table.
